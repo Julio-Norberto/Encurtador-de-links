@@ -1,9 +1,18 @@
+import { useState } from 'react';
 import { FiLink } from 'react-icons/fi';
 import './home.css';
 
 import Menu from '../../components/menu'
+import LinkItem from '../../components/LinkItem';
 
 export default function Home() {
+    const [link, setLink] = useState('');
+    const [showModal, setShowModal] = useState(false);
+
+    function Shortlink(){
+      setShowModal(true);
+    }
+
     return (
       <div className="container-home">
 
@@ -17,14 +26,20 @@ export default function Home() {
 
           <div>
             <FiLink size={24} color='#FFF' />
-            <input placeholder='Cole seu link aqui'/>
+            <input placeholder='Cole seu link aqui' value={link} onChange={ (e) => setLink(e.target.value) } />
           </div>
 
-          <button>Gerar link</button>
+          <button onClick={Shortlink}>Gerar link</button>
 
         </div>
 
         <Menu/>
+
+        { showModal && (
+          <LinkItem
+            closeModal={ () => setShowModal(false)} // atruibuimos uma função anonima para que o alert não seja executado automaticamente
+          />
+        ) }
 
       </div>
     )

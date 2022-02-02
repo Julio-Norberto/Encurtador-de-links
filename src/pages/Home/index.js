@@ -5,12 +5,27 @@ import './home.css';
 import Menu from '../../components/menu'
 import LinkItem from '../../components/LinkItem';
 
+import api from '../../services/api'
+
 export default function Home() {
     const [link, setLink] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [data, setData] = useState({});
 
-    function Shortlink(){
-      setShowModal(true);
+    async function Shortlink(){
+      try{
+        const response = await api.post('/shorten', {
+          long_url: link
+        })
+
+        setData(response.data);
+        setShowModal(true);
+        setLink('')
+
+      }catch{
+        alert("OPS, algo deu errado, por favor tente novamente mais tarde");
+        setLink('');
+      }
     }
 
     return (
@@ -38,6 +53,7 @@ export default function Home() {
         { showModal && (
           <LinkItem
             closeModal={ () => setShowModal(false)} // atruibuimos uma função anonima para que o alert não seja executado automaticamente
+            content={data}
           />
         ) }
 

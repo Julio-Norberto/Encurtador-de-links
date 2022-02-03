@@ -60,6 +60,13 @@
     margin-top: 18px;
 }
 
+.empty-text{
+    width: 100%;
+    text-align: center;
+    margin-top: 28px;
+    color: #FFF;
+}
+
 @media (max-width: 715px){
     .links-container{
         width: 90%;
